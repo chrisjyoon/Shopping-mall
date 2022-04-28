@@ -42,13 +42,7 @@ function FileUpload(props) {
   }
 
 
-  images.map((image,index) => {
-    // const url = `http:localhost:5000/${image}`
-  //   console.log(`****:http://localhost:5000/uploads/${image}`.replace(/:/g, '/'));
-  console.log(`****: ${image} // ${index}`);
-  })
-
-  return (
+   return (
     <div className={styles.container}>
       <Dropzone onDrop={onDrop}>
         {({getRootProps, getInputProps}) => (
