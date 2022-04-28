@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import {
   BrowserRouter,
   Route,
@@ -8,19 +8,25 @@ import {
 import LandingPage from './components/views/LandingPage/LandingPage'; 
 import LoginPage from './components/views/LoginPage/LoginPage';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
-import Auth from './hoc/auth';
+import NavBar from './components/views/NavBar/NavBar';
+import UploadProductPage from './components/views/UploadProductPage/UploadProductPage';
+// import Auth from './hoc/auth';
 
 import './App.css';
 
 function App() {
   return (
-    <BrowserRouter>
-        <Routes>
-          <Route exact path="/" element={<LandingPage />} />
-          <Route exact path="/login" element={<LoginPage />} />
-          <Route exact path="/register" element={<RegisterPage />} />
-        </Routes>
-    </BrowserRouter>
+    <Suspense fallback={(<div>Loading...</div>)}>
+      <NavBar />
+      <BrowserRouter>
+          <Routes>
+            <Route exact path="/" element={<LandingPage />} />
+            <Route exact path="/login" element={<LoginPage />} />
+            <Route exact path="/register" element={<RegisterPage />} />
+            <Route exact path="/product/upload" element={<UploadProductPage />} />
+          </Routes>
+      </BrowserRouter>
+    </Suspense>
   );
 }
 
