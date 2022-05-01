@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 // import { Menu, Badge } from 'antd';
 // import Icon from '@ant-design/icons';
 // import {ShoppingCartOutlined} from '@ant-design/icons';
-import {Nav} from 'react-bootstrap';
+import {Nav, Badge} from 'react-bootstrap';
 import axios from 'axios';
 import { USER_SERVER } from '../../../../Config';
 // import { withRouter } from 'react-router-dom';
@@ -36,7 +36,9 @@ function RightMenu(props) {
       <Nav className="me-auto">
         <Nav.Link href="/history">History</Nav.Link>
         <Nav.Link href="product/upload">Upload</Nav.Link>
-        <Nav.Link href="/user/cart">Cart</Nav.Link>
+        <Nav.Link href="/user/cart" variant="primary">
+          Cart<Badge pill bg="secondary">9</Badge>
+        </Nav.Link>
         <Nav.Link href="/login" onClick={logoutHandler}>logout</Nav.Link>
       </Nav>
     )
