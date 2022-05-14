@@ -37,7 +37,9 @@ function RightMenu(props) {
         <Nav.Link href="/history">History</Nav.Link>
         <Nav.Link href="product/upload">Upload</Nav.Link>
         <Nav.Link href="/user/cart" variant="primary">
-          Cart<Badge pill bg="secondary">9</Badge>
+          Cart<Badge pill bg="secondary">
+            {user.userData && user.userData.cart.length }
+          </Badge>
         </Nav.Link>
         <Nav.Link href="/login" onClick={logoutHandler}>logout</Nav.Link>
       </Nav>

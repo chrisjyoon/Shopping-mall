@@ -12,6 +12,7 @@ import NavBar from './components/views/NavBar/NavBar';
 import UploadProductPage from './components/views/UploadProductPage/UploadProductPage';
 import DetailProductPage from './components/views/DetailProductPage/DetailProductPage';
 import CartPage from './components/views/CartPage/CartPage';
+import HistoryPage from './components/views/HistoryPage/HistoryPage';
 // import Auth from './hoc/auth';
 
 import './App.css';
@@ -28,6 +29,7 @@ function App() {
             <Route exact path="/product/upload" element={<UploadProductPage />} />
             <Route exact path="/product/:productId" element={<DetailProductPage />} />
             <Route exact path="/user/cart" element={<CartPage />} />
+            <Route exact path="/history" element={<HistoryPage />} />
           </Routes>
       </BrowserRouter>
     </Suspense>

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import Auth from '../../../hoc/auth'
-import { getCartItems, removeCartItem } from '../../../_actions/user_action';
+import { getCartItems, removeCartItem, onSuccessBuy } from '../../../_actions/user_action';
 import UserCardBlock from './Sections/UserCardBlock';
+import PaypalExpressBtn from 'react-paypal-express-checkout';
+// import Paypal from '../../../utils/Paypal';
 
 function CartPage(props) {
   const dispatch = useDispatch();
@@ -56,6 +58,26 @@ function CartPage(props) {
           })
   }
 
+  const transactionSuccess = (data) => {
+    console.log('@@@@yogida1:', data);
+    dispatch(onSuccessBuy({
+        cartDetail: props.user.cartDetail,
+        paymentData: data
+    }))
+        .then(response => {
+            if (response.payload.success) {
+                setShowSuccess(true)
+                setShowTotal(false)
+            }
+        })
+  }
+
+  const client = {
+    sandbox:
+      "Ae93GvIBtN30_aAq4FQ8qZuT1SV78Jb2-NOdpDhvN0woQGot2RirDMGhzTidLw_QfDrX3-vd-8MnFOIr",
+      production: "aa"
+  };
+
   return (
     <div style={{ width: '85%', margin: '3rem auto' }}>
       <h1>My Cart</h1>
@@ -64,30 +86,42 @@ function CartPage(props) {
           products={props.user.cartDetail} 
           removeItem={removeFromCart} 
         />
-      </div>
 
         {ShowTotal ?
             <div style={{ marginTop: '3rem' }}>
                 <h2>Total amount: ${Total} </h2>
             </div>
             :
-            // ShowSuccess ?
-            //   <Result
-            //       status="success"
-            //       title="Successfully Purchased Items"
-            //   /> :
-            //   <div style={{
-            //       width: '100%', display: 'flex', flexDirection: 'column',
-            //       justifyContent: 'center'
-            //   }}>
-            <>
-              <br />
-              <h2>No Items In the Cart</h2>
-            </>
-                  
-
+            ShowSuccess ?
+              <h2>Successfully Purchased Items</h2> 
+              :
+              <div style={{
+                    width: '100%', display: 'flex', flexDirection: 'column',
+                    justifyContent: 'center'
+                }}>
+                  <br />
+                  <h2>No Items In the Cart</h2>
+              </div>
         } 
       </div>
+      {/* Paypal Button */}
+
+      {ShowTotal &&
+        <PaypalExpressBtn 
+          client={client} 
+          currency={"AUD"} 
+          total={Total} 
+          onSuccess={transactionSuccess}
+        />
+        // <Paypal
+            // toPay={Total}
+            // onSuccess={transactionSuccess}
+            // transactionError={transactionError}
+            // transactionCanceled={transactionCanceled}
+        // />
+
+       }
+    </div>
   )
 }
 
